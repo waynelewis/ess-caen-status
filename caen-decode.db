@@ -1,0 +1,41 @@
+# File: caen-decode.db
+# Author: Wayne Lewis <wayne.lewis@esss.se>
+# Date: 2019-02-10
+
+record(stringin, "$(SYS)status") {
+  field(DESC, "Simulated Caen status field")
+  field(PINI, "YES")
+  field(VAL,  "0:1:1:0:0")
+}
+
+record(scalcout, "$(SYS)status1:scalcout_") {
+  field(DESC, "Get first status")
+  field(PINI, "YES")
+  field(INAA, "$(SYS)status CPP")
+  field(CALC, "INT(SSCANF(AA, '%d:%*d:%*d:%*d:%*d'))")
+  field(OUT,  "$(SYS)status1.RVAL PP")
+  field(OOPT, "On Change")
+}
+
+record(bi, "$(SYS)status1") {
+  field(DTYP, "Raw Soft Channel")
+  field(DESC, "Status 1")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+}
+
+record(scalcout, "$(SYS)status2:scalcout_") {
+  field(DESC, "Get second status")
+  field(PINI, "YES")
+  field(INAA, "$(SYS)status CPP")
+  field(CALC, "INT(SSCANF(AA, '%*d:%d:%*d:%*d:%*d'))")
+  field(OUT,  "$(SYS)status2.RVAL PP")
+  field(OOPT, "On Change")
+}
+
+record(bi, "$(SYS)status2") {
+  field(DTYP, "Raw Soft Channel")
+  field(DESC, "Status 2")
+  field(ZNAM, "Error")
+  field(ONAM, "OK")
+}
